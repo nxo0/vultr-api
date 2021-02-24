@@ -73,3 +73,19 @@ def vm_update(api_key, instance_id, label, tag, upgrade_plan):
             return res
     except Exception as e:
         logger.err(e)
+
+
+def vm_delete(api_key, instance_id):
+    try:
+        url = f"https://api.vultr.com/v2/instances/{instance_id}"
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+        }
+        data = {
+        }
+        req = urllib.request.Request(url, json.dumps(data).encode(), headers, method='DELETE')
+        with urllib.request.urlopen(req) as res:
+            res = res.read()
+            return res
+    except Exception as e:
+        logger.err(e)
