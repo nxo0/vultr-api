@@ -89,3 +89,21 @@ def vm_delete(api_key, instance_id):
             return res
     except Exception as e:
         logger.err(e)
+
+
+def vm_reboot(api_key, instance_id):
+    try:
+        url = "https://api.vultr.com/v2/instances/reboot"
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type:": "application/json"
+        }
+        data = {
+            "instance_ids": instance_id
+        }
+        req = urllib.request.Request(url, json.dumps(data).encode(), headers)
+        with urllib.request.urlopen(req) as res:
+            res = res.read()
+            return res
+    except Exception as e:
+        logger.err(e)
